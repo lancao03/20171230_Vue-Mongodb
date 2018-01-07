@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>export import</title>
+	</head>
+
+	<body>
+		<script>
+			export let sum = (x, y) => {
+				return x + y
+			}
+
+			export let minus = (m, n) => {
+				return m - n
+			}
+
+			//调用
+			import { sum, minus } from './util'
+			console.log(`sum:${sum(1,6)}`)
+			console.log(`minus:${minus(10,2)}`)
+
+			//调用2
+			import * as util from './util'
+			console.log(`sum:${util.sum(1,6)}`)
+			console.log(`minus:${util.minus(10,2)}`)
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>规范</title>
+	</head>
+
+	<body>
+		<script>
+			//requireJS的语法
+			define(['package/lib'], function(lib) {
+				function foo() {
+					lib.log('hello world')
+				}
+				return {
+					foo: foo
+				}
+			})
+			
+			//所有的模块都是通过define来定义
+			define(function(require,exports,module){
+				//通过require引入依赖
+				var $=require('jquery')
+				var Spinning=require('./spinning')
+			})
+			
+			//CommonJS规范
+			exports.area=function(r){
+				return Math.PI*r*r
+			}
+			
+			exports.circumference=function(r){
+				return 2*Math.PI*r
+			}
+			
+			//ES5
+			require() 
+			
+			//ES6新特性 export import
+		</script>
+	</body>
+
+</html>

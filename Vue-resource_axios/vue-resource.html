@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>vue-resource</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="node_modules/vue/dist/vue.js"></script>
+		<script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+	</head>
+
+	<body>
+		<div id="app" class="container">
+			<h1>vue-resource插件讲解</h1>
+			<a class="btn btn-primary" href="javascript:;" @click="get">GET请求 </a>
+			<a class="btn btn-primary" href="javascript:;" @click="post">POST请求</a>
+			<a class="btn btn-primary" href="javascript:;" @click="jsonp">JSONP请求</a>
+			{{msg}}
+		</div>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					msg: ''
+				},
+				mounted() {
+					Vue.http.interceptors.push((req, next) => {
+						console.log('request init')
+						next(function(res) {
+							console.log('response init')
+							return res
+						})
+					})
+				},
+				http: {
+//					Vue.http({
+//						params: {
+//							userId: '103'
+//						},
+//						headers: {
+//							token: '123'
+//						},
+//						timeout: 5,
+//						before: function() {
+//							console.log('before init')
+//						}
+//					}).then((res) => {
+//						this.msg = res.data
+//					}, (err) => {
+//						this.msg = err
+//					})
+//					root: 'http://192.168.1.109:8080/基于Vue的站点/imoocMall/'
+				},
+				methods: {
+					get() {
+						this.$http.get('package.json', {
+							params: {
+								userId: '101'
+							},
+							headers: {
+								token: "abcd"
+							}
+						}).then((res) => {
+							this.msg = res.data
+						}, (err) => {
+							this.msg = err
+							console.log(err)
+						})
+					},
+					post() {
+						this.$http.post('package.json', {
+							userId: '101'
+						}, {
+							headers: {
+								access_token: 'abc'
+							}
+						}).then((res) => {
+							this.msg = res.data
+						}, (err) => {
+							this.msg = err
+						})
+					},
+					jsonp() {
+						this.$http.jsonp('https://www.imooc.com/course/AjaxCourseMembers?ids=250', {
+								params: {
+									ids: 250
+								}
+							})
+							.then((res) => {
+								this.msg = res.data
+							}, (err) => {
+								this.msg = err
+							})
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
