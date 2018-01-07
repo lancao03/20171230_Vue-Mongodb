@@ -8,6 +8,10 @@
 net start mongodb
 services.msc
 
+http://localhost:3000/goods?page=1&pageSize=8&sort=1&priceLevel=0
+
+	浏览器JSON格式化 FE助手
+
 
 1.app.js里配置的是一级路由
 	app.use('/users',users)
