@@ -17,6 +17,9 @@ mongod --dbpath d:\mongodb\data\db --journal
 
 storageEngine 存储引擎
 
+##webstrom 启动server服务
+"D:\Program Files\JetBrains\WebStorm 2017.3.1\bin\runnerw.exe" "D:\Program Files\nodejs\node.exe" E:\基于Vue的站点\imoocMall\server\bin\www
+
 mongo.log
 #数据库路径
 dbpath=D:\MongoDB\data\db

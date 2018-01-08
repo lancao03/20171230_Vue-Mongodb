@@ -4,6 +4,13 @@
 	run-> edit configuration -> node.js 新增 设置 JavaScript
 3.pm2
 
+###
+get取参数
+	req.params.productId
+post取参数
+	req.body.productId
+###
+
 ###mongo命令
 net start mongodb
 services.msc
@@ -54,6 +61,18 @@ http://localhost:3000/goods?page=1&pageSize=8&sort=1&priceLevel=0
 	})
 	
 	module.exports=mongoose.model('Good',productSchema)
+
+//基本骨架
+------------------------------------------------------
+	let mongoose=require('mongoose')
+	//模型 里面钉钉和数据库对应起来 方便查询
+	let userSchema=new mongoose.Schema({
+		
+	})
+	
+	//导出模型 大小写不敏感 最后一个字段假如数据库表带s 可以省略
+	module.exports=mongoose.model('User',userSchema,"users")
+------------------------------------------------------
 2.创建路由
 	var express = require('express')
 	var router = express.Router()
@@ -90,6 +109,27 @@ http://localhost:3000/goods?page=1&pageSize=8&sort=1&priceLevel=0
 	module.exports 匿名输出
 	module.exports.user 带名字的输出
 
+--------------------------------------------------
+//命令行执行查询一个数据
+	use dumall
+	db.users.findOne()
+	函数名大小写敏感，执行结果已经进行了格式化输出
+//引入模型
+	let User=require('../modules/user')
+	User.findOne({
+		userId:userId
+	},function(err,doc){
+		if(err){
+			res.json({
+				status:1,
+				msg:err.msg
+			})
+		}else{
+			
+		}
+	})
+--------------------------------------------------
+
 ##mongo命令
 mongod --dbpath D:mongo\data\db  
 
@@ -102,4 +142,9 @@ http://localhost:3000/goods?page=1&pageSize=8&sort=1
 ##滚动插件
 cnpm install vue-infinite-scroll --save
 
-##
+##加入购物车接口
+1.创建路由 /addCart
+2.查询用户是否存在
+3.存在获取user表的数据
+4.商品存在 商品数据保存到cartList中
+5.商品不存在则重新插入到user的cartList中
