@@ -1,72 +1,76 @@
-# windows平台下MongoDB安装和环境搭建 非关系型数据库
+## windows平台下MongoDB安装和环境搭建 非关系型数据库
 1. 高可扩展性
 2. 分布式存储
 3. 低成本
 4. 结构灵活
 
-## 如何安装
+### 如何安装
 1. 下载安装包或者压缩包
 2. 添加db存储和日志存储文件夹
 3. 添加服务、配置环境变量、启动Mongo
-https://pan.baidu.com/s/1mhPejwO
+[https://pan.baidu.com/s/1mhPejwO](https://pan.baidu.com/s/1mhPejwO)
 
-## 启动mongodb服务 bin目录下有个mongod的exe可执行文件
-mongod --dbpath D:\mongodb\data\db
+### 启动mongodb服务 bin目录下有个mongod的exe可执行文件
+	mongod --dbpath D:\mongodb\data\db
+	mongod --dbpath d:\mongodb\data\db --journal
 
-mongod --dbpath d:\mongodb\data\db --journal
-
-storageEngine 存储引擎
+	storageEngine 存储引擎
 
 ## webstrom 启动server服务
-"D:\Program Files\JetBrains\WebStorm 2017.3.1\bin\runnerw.exe" "D:\Program Files\nodejs\node.exe" E:\基于Vue的站点\imoocMall\server\bin\www
+	"D:\Program Files\JetBrains\WebStorm 2017.3.1\bin\runnerw.exe" "D:\Program Files\nodejs\node.exe" E:\基于Vue的站点\imoocMall\server\bin\www
 
-mongo.log
-# 数据库路径
-dbpath=D:\MongoDB\data\db
-# 日志输出文件路径
-logpath=D:\MongoDB\logs\mongodb.log
-# 错误日志采用追加模式，配置这个选项后mongodb的日志会追加到现有的日志文件，而不是从新创建一个新文件
-logappend=true
-# 启用日志文件，默认启用
-journal=true
-# 这个选项可以过滤掉一些无用的日志信息，若需要调试使用请设置为false
-quiet=false
-# 端口号 默认为27017
-port=27017
-# 指定存储引擎（默认先不加此引擎，如果报错了，大家在加进去）
-storageEngine=mmapv1
+>mongo.log
+	# 数据库路径
+	dbpath=D:\MongoDB\data\db
+	# 日志输出文件路径
+	logpath=D:\MongoDB\logs\mongodb.log
+	# 错误日志采用追加模式，配置这个选项后mongodb的日志会追加到现有的日志文件，而不是从新创建一个新文件
+	logappend=true
+	# 启用日志文件，默认启用
+	journal=true
+	# 这个选项可以过滤掉一些无用的日志信息，若需要调试使用请设置为false
+	quiet=false
+	# 端口号 默认为27017
+	port=27017
+	# 指定存储引擎（默认先不加此引擎，如果报错了，大家在加进去）
+	storageEngine=mmapv1
 
+	在mongoDB的bin目录下执行以下命令
+	mongod -f D:\MongoDB\ect\mongo.conf
 
+> 安装到windows 本地服务里
+	mongod --config D:\MongoDB\etc\mongo.conf --install --serviceName MongoDB
 
-mongod -f D:\MongoDB\ect\mongo.conf
+	mongod --config D:\MongoDB\etc\mongo.conf --httpinterface
 
-安装到windows 本地服务里
-mongod --config D:\MongoDB\etc\mongo.conf --install --serviceName MongoDB
+> 删除服务
+	mongod --config D:\MongoDB\etc\mongo.conf --remove
 
-mongod --config D:\MongoDB\etc\mongo.conf --httpinterface
-
-安装服务后配置环境变量 我的电脑-属性-高级系统设置-环境变量-path ;d:/mongodb/bin
+> 安装服务后配置环境变量 我的电脑-属性-高级系统设置-环境变量-path ;d:/mongodb/bin
 就可以在命令行任意目录下 输入mongo
 
-## 删除服务
-mongod --config D:\MongoDB\etc\mongo.conf --remove
+#### 启动MongoDB服务
+	net start mongodb
+	services.msc
 
-###
-C:\Program Files (x86)\MongoDB\Server\3.2\bin
-
-MongoVue
-## 命令行创建数据库 
-use imoocmall
-db.goods.insert({id:'101',name:"m16","salePrice":2499})
+#### Mongo Cli
+#### 命令行创建数据库 
+	use imoocmall
+	db.goods.insert({id:'101',name:"m16","salePrice":2499})
+	
+	//命令行执行查询一个数据
+	use dumall
+	db.users.findOne()
+	函数名大小写敏感，执行结果已经进行了格式化输出
 
 ## MongDB创建用户
 1. 创建管理员
 2. 授权认证
 3. 给使用的数据库添加用户
 
-通过mongo命令启动
-配置环境变量后通过[mongo]启动
-mongod --config d:\mongodb\etc\mongo.conf
+	通过mongo命令启动
+	配置环境变量后通过[mongo]启动
+	mongod --config d:\mongodb\etc\mongo.conf
 
 ## 授权 --auth
 mongod --config D:\MongoDB\etc\mongo.conf --auth
@@ -98,13 +102,13 @@ mongod --config D:\MongoDB\etc\mongo.conf --auth
 
 ## 设计数据模型
 > schema model docments 模式模型和文档
-mongoose mongodb 
-1. Schema 模式定义 对数据字段进行定义
+	mongoose mongodb 
+1. Schema 模式定义 对数据库集合的字段定义类型，需要和数据表的字段名保持一致
 	var goodSchema=new mongoose.Schema({
 		name:String,
 		price:Number
 	})
-2. Model 编译模型
+2. Model 编译模型 定义模式的名称，schema
 	var goodsModel=mongoose.model({
 		'movie',goodSchema
 	})
@@ -130,9 +134,13 @@ mongoose mongodb
 			 })
 	})
 5. 单条数据删除
-.remove({_id:id})
+	.remove({_id:id})
 
 ## 开发后端逻辑 views models schemas 
+
+----
+	一些MongoDB入门的基础知识
+----
 
 ## MongoDB 开源的NoSQL数据库
 ## lamp = linux mysql apache php
