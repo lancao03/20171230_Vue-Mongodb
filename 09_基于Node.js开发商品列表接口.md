@@ -51,6 +51,32 @@
 2. 创建model 实体
 3. 创建路由
 
+#### Mongoose官网示例
+> 创建数据库连接 监听错误信息
+	var mongoose = require('mongoose');
+	//类似 use test
+	mongoose.connect('mongodb://localhost:27017/test', { useMongoClient: true });
+
+	var db = mongoose.connection;
+	//这里就是说连接成功的话会打印出coneect success,失败的话会打印出失败的信息
+	db.on('error', console.error.bind(console, 'connection error:'));
+	db.once('open', function() {
+	  console.log('connect success')
+	});
+
+	//Schema
+	var kittySchema = mongoose.Schema({
+	    name: String
+	});
+	//Model 对应 mongodb中的connection
+	var Kitten = mongoose.model('Kitten', kittySchema);
+
+	//Documents
+	var silence = new Kitten({ name: 'Silence' });
+
+	//将数据保存到数据库里面去，没有这一步，数据库是不会被建立的
+	silence.save();
+
 1.创建models文件夹
 	//创建模型 安装mongoose 创建Schema视图 -- 表模型 定义数据类型
 	var mongoose=require('mongoose')
