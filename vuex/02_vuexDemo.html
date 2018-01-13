@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>demo vuex mutation</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<h2>{{msg}}</h2>
+			<a href="javascript:;" @click="add">add click</a>
+			<counter></counter>
+		</div>
+		<script>
+			const counter = {
+				template: `
+					<div>{{count}}</div>
+				`,
+				computed: {
+					count() {
+						return this.$store.state.count
+					}
+				}
+			}
+			const store = new Vuex.Store({
+				state: {
+					count: 10
+				},
+				mutations: {
+					increment(state) {
+						state.count++
+					}
+				}
+			});
+			new Vue({
+				el: "#app",
+				store,
+				data: {
+					msg: "Vuex的使用"
+				},
+				components: {
+					counter
+				},
+				methods:{
+					add(){
+						this.$store.commit('increment')
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>
