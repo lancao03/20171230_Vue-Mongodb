@@ -41,7 +41,11 @@
 > 安装到windows 本地服务里
 	mongod --config D:\MongoDB\etc\mongo.conf --install --serviceName MongoDB
 
+
 	mongod --config D:\MongoDB\etc\mongo.conf --httpinterface
+	
+	C:\Program Files\MongoDB\Server\3.4\bin F:\MongoDB\etc
+	mongod --config F:\MongoDB\etc\mongo.conf --install --serviceName MongoDB
 
 > 删除服务
 	mongod --config D:\MongoDB\etc\mongo.conf --remove
